@@ -39,33 +39,14 @@ if __name__ == '__main__':
         for joystick in joysticks:
             for event in pygame.event.get():
                 if event.type == pygame.JOYBUTTONDOWN:
-                    # print(f"Joystick button {event.button} pressed.")
                     print("note_on", input_2_note[joystick][f"b{event.button}"])
                     outport.send(mido.Message('note_on', channel=1,
                                               note=input_2_note[joystick][f"b{event.button}"], velocity=127))
+
                 if event.type == pygame.JOYBUTTONUP:
-                    # print(f"Joystick button {event.button} released.")
                     print("note_off", input_2_note[joystick][f"b{event.button}"])
                     outport.send(mido.Message('note_off', channel=1,
                                               note=input_2_note[joystick][f"b{event.button}"], velocity=0))
-                # if event.type == pygame.JOYAXISMOTION:
-                #     if event.value == 0:
-                #         outport.send(mido.Message('note_off', channel=1,
-                #                                   note=input_2_note[joystick][f"a{event.axis}"], velocity=0))
-                #         outport.send(mido.Message('note_off', channel=1,
-                #                                   note=input_2_note[joystick][f"a{-event.axis}"], velocity=0))
-                #     elif event.value > 0:
-                #         outport.send(mido.Message('note_on', channel=1,
-                #                                   note=input_2_note[joystick][f"a{event.axis}"],
-                #                                   velocity=int(event.value*127)))
-                #         outport.send(mido.Message('note_off', channel=1,
-                #                                   note=input_2_note[joystick][f"a{-event.axis}"], velocity=0))
-                #     else:
-                #         outport.send(mido.Message('note_on', channel=1,
-                #                                   note=input_2_note[joystick][f"a{-event.axis}"],
-                #                                   velocity=int(-event.value*127)))
-                #         outport.send(mido.Message('note_off', channel=1,
-                #                                   note=input_2_note[joystick][f"a{event.axis}"], velocity=0))
 
                 if event.type == pygame.JOYAXISMOTION:
                     if event.value == 0:
@@ -79,15 +60,10 @@ if __name__ == '__main__':
                         outport.send(mido.Message('control_change', channel=1,
                                                   control=input_2_note[joystick][f"a{event.axis}"],
                                                   value=int(event.value*127)))
-                        # outport.send(mido.Message('control_change', channel=1,
-                        #                           control=input_2_note[joystick][f"a{-event.axis}"],
-                        #                           value=0))
                     else:
                         outport.send(mido.Message('control_change', channel=1,
                                                   control=input_2_note[joystick][f"a{-event.axis}"],
                                                   value=int(-event.value*127)))
-                        # outport.send(mido.Message('control_change', channel=1,
-                        #                           control=input_2_note[joystick][f"a{event.axis}"], value=0))
 
                 if event.type == pygame.JOYHATMOTION:
                     pprint(event.value)
