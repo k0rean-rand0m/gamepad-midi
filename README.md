@@ -1,6 +1,10 @@
 # gamepad-midi
 A Python app to use gamepad as MIDI device
 
+## Python Requirements
+1. pygame
+2. mido
+
 
 ## MacOS
 1. Create "Gamepad" port in the device "IAC Driver" 
